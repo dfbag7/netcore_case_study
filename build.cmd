@@ -34,21 +34,14 @@ if %errorlevel% == 0 (
 
 set APP_REV=%REV_DIRTY%%REV_COUNT%-%REV_HASH%
 
-dotnet restore "ScanApp.csproj"
-dotnet build "ScanApp.csproj" ^
-	-p:DeployOnBuild=true ^
-	-p:PublishProfile="Properties/PublishProfiles/Windows.pubxml" ^
-	-p:Description="Built from commit !REV_HASH! in !REV_BRANCH! on !REV_DATE! tag !REV_TAG!" ^
-	-p:VersionSuffix="!REV_DIRTY!!REV_COUNT!-!REV_HASH!"
+dotnet publish "ScanApp.csproj" -c Release /p:PublishProfile=Windows /p:PublishDir=publish/win-x64 ^
+	/p:Description="Built from commit !REV_HASH! in !REV_BRANCH! on !REV_DATE! tag !REV_TAG!" ^
+	/p:VersionSuffix="!REV_DIRTY!!REV_COUNT!-!REV_HASH!"
 
-dotnet build "ScanApp.csproj" ^
-	-p:DeployOnBuild=true ^
-	-p:PublishProfile="Properties/PublishProfiles/Linux.pubxml" ^
-	-p:Description="Built from commit !REV_HASH! in !REV_BRANCH! on !REV_DATE! tag !REV_TAG!" ^
-	-p:VersionSuffix="!REV_DIRTY!!REV_COUNT!-!REV_HASH!"
+dotnet publish "ScanApp.csproj" -c Release /p:PublishProfile=Linux /p:PublishDir=publish/linux-x64 ^
+	/p:Description="Built from commit !REV_HASH! in !REV_BRANCH! on !REV_DATE! tag !REV_TAG!" ^
+	/p:VersionSuffix="!REV_DIRTY!!REV_COUNT!-!REV_HASH!"
 
-dotnet build "ScanApp.csproj" ^
-	-p:DeployOnBuild=true ^
-	-p:PublishProfile="Properties/PublishProfiles/MacOS.pubxml" ^
-	-p:Description="Built from commit !REV_HASH! in !REV_BRANCH! on !REV_DATE! tag !REV_TAG!" ^
-	-p:VersionSuffix="!REV_DIRTY!!REV_COUNT!-!REV_HASH!"
+: dotnet publish "ScanApp.csproj" -c Release /p:PublishProfile=MacOS /p:PublishDir=publish/osx-x64 ^
+:	/p:Description="Built from commit !REV_HASH! in !REV_BRANCH! on !REV_DATE! tag !REV_TAG!" ^
+:	/p:VersionSuffix="!REV_DIRTY!!REV_COUNT!-!REV_HASH!"

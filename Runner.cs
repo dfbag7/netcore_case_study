@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.Data.Sqlite;
+using ScanApp.Utils;
 
 namespace ScanApp
 {
@@ -59,7 +60,9 @@ namespace ScanApp
             _logger.Info($"Using connection string: {_config.ConnectionString}");
 
             int numberOfSuccessfullyProcessedFiles = 0;
-            var enumerator = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories);
+
+            var enumerator = SafeFilesEnumerator.Enumerate(path);
+
             enumerator.AsParallel()
                 .WithDegreeOfParallelism(_config.Parallelism) // no more than this number of tasks simultaneously
                 .ForAll(filePathName => 

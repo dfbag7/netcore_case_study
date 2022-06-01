@@ -13,6 +13,7 @@ using NLog.Extensions.Logging;
 using ScanApp.Data;
 using ScanApp.Migrations;
 using ScanApp.Models;
+using ScanApp.Utils;
 
 namespace ScanApp
 {
@@ -55,6 +56,7 @@ namespace ScanApp
                     loggingBuilder.AddFluentMigratorConsole();
                 })
                 .AddScoped<IHashesRepository, HashesRepository>()
+                .AddTransient<IFileHasher, FileHasher>()
                 .AddTransient<Runner>()
                 .BuildServiceProvider();
         }

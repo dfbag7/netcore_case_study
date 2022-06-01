@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ScanApp": {
+      "commandName": "Project",
+      "commandLineArgs": "E:\\Projects\\ScanApp"
+    }
+  }
+}
